@@ -3,6 +3,7 @@ package com.example.kidsdrawingapp
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 
@@ -18,6 +19,7 @@ class DrawingView(context : Context, attrs : AttributeSet) : View(context,attrs)
     private var mBrushSize          : Float = 0.toFloat()               //------> Define the value as 0
     private var color           = Color.BLACK
     private var canvas : Canvas?    = null
+    private val mPaths              = ArrayList<CustomPath>()
 
     init
     {
@@ -33,7 +35,7 @@ class DrawingView(context : Context, attrs : AttributeSet) : View(context,attrs)
             mDrawPaint!!.strokeJoin  = Paint.Join.ROUND
             mDrawPaint!!.strokeCap   = Paint.Cap.ROUND
             mCanvasPaint             = Paint(Paint.DITHER_FLAG)         //---------->DITHER means shaking
-            mBrushSize               = 20.toFloat()                     //---------->change the float value to 20
+            //mBrushSize               = 20.toFloat()                     //---------->change the float value to 20
     }
 
     //for view changing in the phone
@@ -50,11 +52,20 @@ class DrawingView(context : Context, attrs : AttributeSet) : View(context,attrs)
     {
         super.onDraw(canvas)
         canvas.drawBitmap(mCanvasBitmap!!, 0f, 0f, mCanvasPaint)
+
+        //for saving data of strokes created by Brush
+        for (paths in mPaths)
+        {
+            mDrawPaint!!.strokeWidth    = paths.brushThickness
+            mDrawPaint!!.color          = paths.color
+            canvas.drawPath(paths , mDrawPaint!!)
+        }
+
         if (!mDrawPath!!.isEmpty)
         {
             mDrawPaint!!.strokeWidth    = mDrawPath!!.brushThickness
             mDrawPaint!!.color          = mDrawPath!!.color
-            canvas.drawPath(mDrawPath!!, mDrawPaint!!)
+            canvas.drawPath(mDrawPath!! , mDrawPaint!!)
         }
     }
 
@@ -81,7 +92,9 @@ class DrawingView(context : Context, attrs : AttributeSet) : View(context,attrs)
 
             MotionEvent.ACTION_UP ->
             {
+                mPaths.add(mDrawPath!!)
                 mDrawPath = CustomPath(color,mBrushSize)
+
             }
 
             else -> return false
@@ -90,6 +103,16 @@ class DrawingView(context : Context, attrs : AttributeSet) : View(context,attrs)
         invalidate()
         return true
 
+    }
+
+    fun setSizeOfBrush(newSize : Float)
+    {
+        mBrushSize = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP ,
+            newSize ,                                               //------------> change the thickness of brush accordingly to screen
+            resources.displayMetrics
+        )
+        mDrawPaint!!.strokeWidth = mBrushSize
     }
 
     //nested class ----->Importing drawing screen by Graphic class
