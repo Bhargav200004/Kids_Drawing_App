@@ -65,7 +65,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun paintClicked(view: View){
-        Toast.makeText(this, "clicked paint", Toast.LENGTH_SHORT).show()
+        if(view !== mImageButtonCurrentPaint){
+            val imageButton = view as ImageButton
+            val colorTag    = imageButton.tag.toString()
+            drawingView?.setColor(colorTag)
+
+            imageButton.setImageDrawable(
+                ContextCompat.getDrawable(this,R.drawable.pallet_pressedl)
+            )
+
+            mImageButtonCurrentPaint?.setImageDrawable(
+                ContextCompat.getDrawable(this,R.drawable.pallet_normal)
+            )
+
+            mImageButtonCurrentPaint = view
+
+        }
     }
 
 
