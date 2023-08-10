@@ -201,7 +201,8 @@
             android:layout_height="50dp"
             android:layout_margin="5dp"
             android:background="@drawable/album"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY"
+            android:layout_marginStart="40dp"/>
 
     </LinearLayout>
 
