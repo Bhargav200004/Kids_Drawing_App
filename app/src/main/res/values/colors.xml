@@ -14,4 +14,6 @@
     <color name="purple">#6a5acd</color>
     <color name="random">#45aeb3</color>
 
+    <color name="custom_progress_color">#FF4081</color>
+
 </resources>

@@ -23,8 +23,9 @@
             android:id="@+id/iv_backgraound"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/burger"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            tools:src="@drawable/burger"
+            />
 
         <com.example.kidsdrawingapp.DrawingView
             android:id="@+id/drawing_view"
@@ -190,10 +191,25 @@
             android:id="@+id/ibtn_brush"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_margin="5dp"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/brush"
             android:scaleType="fitXY" />
 
+        <ImageButton
+            android:id="@+id/ibtn_Undo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/undo"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:id="@+id/ibtn_save"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/download"
+            android:scaleType="fitXY" />
 
     </LinearLayout>
 
